@@ -1,0 +1,115 @@
+<html lang="pt-br">
+
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Inscrições Culto Presencial - Igreja Metodista em Palmas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <?!=Chamar("style") ?>
+</head>
+
+<body class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="card fat">
+                        <div class="card-body">
+                            <img src="https://i.imgur.com/y5FoQ8Y.png" class="brand">
+                            <h3 class="card-title text-center" id="titulo">Inscrição Culto Presencial Domingo (02/05) - 19:30H</h3>
+                            <p id="subtitulo">Inscreva-se para assistir o culto da Igreja Metodista em Palmas presencialmente no domingo 02/05 às 19:30H.</p>
+                            <a id="linkYoutube" href="https://www.youtube.com/channel/UCe9ff8DnD9GIZD8nC5KpIMg"></a>
+                            <hr>
+                            <form class="my-login-validation">
+                                <div class="form-group">
+                                    <label for="Nome">Nome</label>
+                                    <input id="Nome" type="text" name="name" class="form-control" placeholder="Digite seu Nome">
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <button onclick="Salvar();" type="button" id="btnEnviar" class="btn btn-success btn-block">
+										Enviar
+									</button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    Inscrições Restantes:
+                                    <br>
+                                    <span id="qtdInscricoesRestantes"></input>
+                                </div>
+                            </form>
+                            <br>
+                            <hr>
+                            <div class="social-links mt-3 text-center">
+                                <a href="https://matheuspcouto10.github.io/"><i class="fa fa-user"></i></a>
+                                <a href="https://api.whatsapp.com/send?phone=5563992014337"><i class="fa fa-whatsapp"></i></a>
+                                <a href="https://www.instagram.com/palmasmetodista/?hl=pt-br"><i class="fa fa-instagram"></i></a>
+                                <a href="https://www.youtube.com/channel/UCe9ff8DnD9GIZD8nC5KpIMg"><i class="fa fa-youtube"></i></a>
+                                <br><br> Copyright &copy; 2021 &mdash; Desenvolvido por Matheus Pimentel Do Couto
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            google.script.run.withSuccessHandler(SpanInscricoes).Init();
+
+            function SpanInscricoes(numeroInscricoes) {
+                document.getElementById('qtdInscricoesRestantes').textContent = numeroInscricoes;
+
+                if (numeroInscricoes == 0) {
+                    document.getElementById('btnEnviar').disabled = "true";
+                    document.getElementById('Nome').disabled = "false";
+                    document.getElementById('Nome').placeholder = "";
+                    document.getElementById('titulo').textContent = "Inscrições Encerradas !";
+                    document.getElementById('subtitulo').textContent = "Limite máximo de inscrições alcançado, não é mais possível se inscrever. O culto será transmitido no Youtube no link abaixo. ";
+                    document.getElementById('linkYoutube').textContent = "https://www.youtube.com/channel/UCe9ff8DnD9GIZD8nC5KpIMg"; 
+                }
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Salvar() {
+
+            if (document.getElementById('Nome').value.trim().length == 0) {
+
+                alert('PREENCHA OS CAMPOS !');
+                return false;
+
+            }
+            if (document.getElementById('Nome').value.trim().length <= 5) {
+                alert('O NOME INFORMADO É MUITO PEQUENO !');
+
+            } else {
+
+                var dados = {
+                    Nome: document.getElementById('Nome').value
+                };
+
+                google.script.run.withSuccessHandler(ValidarInscricoes).Registrar(dados);
+
+                function ValidarInscricoes(retorno) {
+                    if (retorno != 0) {
+                        window.open("https://script.google.com/macros/s/AKfycbyLGGFX3SCvJqc5pCJg77oRvwD_4VrgednXS2mVAHB-8iR5W85JnZwevDiuTfqGfaGn/exec", '_top');
+                    } else {
+                        alert('ESTE NOME JÁ ESTÁ INSCRITO !');
+                    }
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>
