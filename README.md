@@ -1,1 +1,1 @@
-Formulário web de inscrições para culto de igreja utilizando o Google App Script.
+Formulário web de inscrições para culto de igreja vinculado a uma planilha do Google Drive utilizando o App Script através da linguagem JavaScript para implementação e disponibiliza o formulário como um link na web.
