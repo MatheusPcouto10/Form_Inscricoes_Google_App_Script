@@ -1,1 +1,1 @@
-# Form_Inscricoes_Google_App_Script
+# Formulário web de inscrições para culto de igreja utilizando o Google App Script.
